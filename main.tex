@@ -1,0 +1,485 @@
+\documentclass{article}
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{amsfonts}
+\usepackage{mathtools}
+\usepackage{xfrac}
+
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}{Lemma}
+\newtheorem{proposition}{Proposition}
+\newtheorem{corollary}{Corollary}
+
+\newcommand{\apply}[2]{\left\langle#1, #2\right\rangle}
+\newcommand{\prob}[1]{\mathrm{P}{\left[#1\right]}}
+\newcommand{\Var}{\mathrm{Var}}
+\newcommand{\E}{\mathrm{E}}
+\newcommand{\J}{J^{(\alpha)}}
+
+\makeatletter
+\newcommand{\subalign}[1]{%
+  \vcenter{%
+    \Let@ \restore@math@cr \default@tag
+    \baselineskip\fontdimen10 \scriptfont\tw@
+    \advance\baselineskip\fontdimen12 \scriptfont\tw@
+    \lineskip\thr@@\fontdimen8 \scriptfont\thr@@
+    \lineskiplimit\lineskip
+    \ialign{\hfil$\m@th\scriptstyle##$&$\m@th\scriptstyle{}##$\hfil\crcr
+      #1\crcr
+    }%
+  }%
+}
+\makeatother
+
+
+\begin{document}
+
+\section{Introduction}
+Recall, that 'eigenvalues' distrubution of Gaussian $\beta$-ensemble of size $N$ has density
+$$
+    	\frac{1}{Z_{N}^{(\beta)}}\exp{\left(-\frac{1}{2}\sum\limits_{i = 1}^{N}x_{i}^2\right)}|V_N(x_1, \ldots, x_N)|^{\beta},
+		$$
+		where $V_N$ is a Vandermonde determinant:
+        $$
+            V_N(x_1, \ldots, x_{N}) = \prod\limits_{i = 1}^{N}\prod\limits_{j = i + 1}^{N}|x_i - x_j| 
+        $$
+        and $Z_{N}^{(\beta)}$ is just a normalization coefficient:
+		$$
+			Z_{N}^{(\beta)} = 
+        \int\limits_{\mathbb{R}^N}\exp{\left(-\frac{1}{2}\sum\limits_{i = 1}^{N}x_{i}^2\right)}|V_N(x_1, \ldots, x_N)|^{\beta}.
+		$$
+    We denote this density by $g_N^{(\beta)}(x_1, \ldots, x_N)$.
+
+    The goal of this paper is, in certain sense, describe the asymptotic behaviour of a random vector
+    $$
+        (\lambda_{1}^{(\beta)}, \ldots, \lambda_{N}^{(\beta)}) \propto g_{N}^{(\beta)},
+    $$
+    when $N \to +\infty$ while $N \cdot \beta \to 2c$, where $c$ is some constant.
+
+    To be more precise, we introduce the random measure
+    $$
+        L_{N}^{(\beta)} = \frac{1}{N}\sum\limits_{i = 1}^{N}\delta_{\sfrac{\lambda_{N}^{(\beta)}}{\sqrt{N}}},
+    $$
+    where $\delta_{a}$ is a Dirac measure.
+
+    
+    Then fix any sequence of positive integers $\{N_m\}_{m = 1}^{\infty}$ and positive reals $\{\beta_{m}\}_{m = 1}^{\infty}$ such that
+    $$
+        \lim\limits_{m \to \infty}N_m = +\infty \text{ and } \lim\limits_{m \to \infty}N_m\beta_m = 2c,
+    $$
+    for some constant $c$ and set $L_m \coloneqq L_{N_m}^{(\beta_m)}$. Denote by $\overline{L}_m$ the mean of $L_m$: $\forall f \in C_{b}(\mathbb{R}), \, \apply{\overline{L}_m}{f} = \E\left[\apply{L_m}{f}\right]$.
+    
+    We prove that moments of $\overline{L}_m$ converge to the following sequence:
+
+$$
+    \begin{cases}
+        M_{2k + 1} = 0 & k \geq 0 \\
+		M_{2k} = \sum\limits_{r + s = k - 1}M_{2r}M_{2s} + c(2k - 1)M_{2k - 2} & k > 0 \\
+		M_{2k} = 1 & k = 0.
+	\end{cases}
+$$
+
+    \begin{proposition}\label{prop:moments}
+    For every non-negative integer $k$:
+    $$
+    \lim\limits_{m \to \infty}\apply{\overline{L}_m}{x^k} = M_{k}
+    $$
+    \end{proposition}
+
+    We also prove, that the variance of moments of $L_m$ tends to $0$:
+    
+    \begin{proposition}\label{prop:variance}
+    For every positive integer $k$:
+    $$
+    \lim\limits_{m \to \infty}\Var\left[\apply{L_m}{x^k}\right] = 0
+    $$
+    \end{proposition}
+
+    These two propositions together imply the main result of this paper:
+    
+    \begin{theorem}\label{theorem:main}
+        There is a unique measure $L$, whose $k$-th moments are $M_k$ and $L_m$ converges weakly, in probability to $L$. Precisely:
+        
+        For all $\epsilon > 0$ and $f \in C_b(\mathbb{R})$:
+        $$
+            \lim\limits_{m \to \infty}\prob{\left|\apply{L_m}{f} - \apply{L}{f}\right| > \epsilon} = 0
+        $$
+    \end{theorem}
+
+    
+
+    Coefficients $h_{\mu, \nu}^{\tau}$, in turn, give a connection of Jack polynomials to the maps enumeration.
+\section{Connections to $h$-coefficients}
+
+    First we state the main result of \cite{Okounkov_1997}, which connects $\beta$-distribition to Jack polynomials.
+
+    Denote by $\left[|y|^{|\lambda|}\right]\J_{\lambda}(y)$ the coefficient of the polynomial $(\sum{x_i^2})^{\sfrac{|\lambda|}{2}}$ in the power-sum expansion of $\J_{\lambda}(y)$.
+
+    Then the following holds true:
+
+    \begin{equation}\label{eq:okounkov}
+        \int\limits_{\mathbb{R}^n}\J_\lambda(t)g_{N}^{(\sfrac{2}{\alpha})}(t)\mathop{dt} = \J_{\lambda}(1, \ldots, 1)\left(\left[ |y|^{|\lambda|}\right]\J_\lambda(y)\right).
+    \end{equation}
+
+    We rewrite it as follows:
+    \begin{equation}\label{eq:okounkov}
+        \int\limits_{\mathbb{R}^n}\J_\lambda(t)g_{N}^{(\sfrac{2}{\alpha})}(t)\mathop{dt} = \J_{\lambda}(x)\J_{\lambda}(y)\Bigg|_{\subalign{
+            &p_r(x) = N \\
+            &p_r(y) = \delta_{r, 2}
+        }},
+    \end{equation}
+
+    meaning, that we expand $\J_{\lambda}(x)$ and $\J_{\lambda}(y)$ in the power-sum basis and for every integer $r \geq 0$ we substitute $N$ instead of $p_r(x)$ and $\delta_{r, 2}$ instead of $p_r(y)$, where $\delta$ is a Kronecker delta.
+
+\begin{lemma}\label{lemma:moments_and_jack}
+    For any partition $\theta \vdash m$:
+    \begin{equation}        
+    \int\limits_{\mathbb{R}^N}p_{\theta}(t)g_N^{(\sfrac{2}{\alpha})}(t)\mathop{dt} = z_{\theta}\alpha^{l(\theta)}[p_{\theta}(z)]\left.\left(
+    \sum\limits_{\lambda}
+    \frac{\J_{\lambda}(x)\J_{\lambda}(y)\J_{\lambda}(z)}{\langle \J_{\lambda} \J_{\lambda}\rangle_{\alpha}}\right)\right |_{\subalign{
+            &p_r(x) = N \\
+            &p_r(y) = \delta_{r, 2}
+        }}
+    \end{equation}
+\end{lemma}
+\begin{proof}
+    Note, that:
+    \begin{equation}\label{eq:lemma1:first}
+        \frac{1}{z_{\theta}\alpha^{l(\theta)}}\int\limits_{\mathbb{R}^N}p_{\theta}(t)g_N^{(\sfrac{2}{\alpha})}(t)\mathop{dt} = [p_{\theta}(z)]\int\limits_{\mathbb{R}^N}\left(\sum\limits_{\lambda \vdash m}\frac{p_{\lambda}(z)p_{\lambda}(t)}{z_{\lambda}\alpha^{l(\lambda)}}\right)g_N^{(\sfrac{2}{\alpha})}(t)\mathop{dt}.
+    \end{equation}
+
+    Now we use the Cauchy identity:
+    $$
+		\prod_{i, j}(1 - x_iy_j)^{-\frac{1}{\alpha}} = \sum_{\lambda}{\frac{p_{\lambda}(x)p_{\lambda}(y)}{z_{\lambda}\alpha^{l(\lambda)}}} = \sum_{\lambda}{\frac{\J_{\lambda}(x)\J_{\lambda}(y)}{\langle \J_{\lambda}, \J_{\lambda}\rangle_{\alpha}}},
+	$$
+    to switch from power sum symmetric functions to Jack polynomials and apply (\ref{eq:okounkov}):
+
+    \begin{multline}\label{eq:lemma1:second}
+        \int\limits_{\mathbb{R}^N}\left(\sum\limits_{\lambda \vdash m}\frac{p_{\lambda}(t)p_{\lambda}(z)}{z_{\lambda}\alpha^{l(\lambda)}}\right)g_N^{(\sfrac{2}{\alpha})}(t)\mathop{dt} =
+		\int\limits_{\mathbb{R}^N}\left(\sum\limits_{\lambda \vdash m}\frac{\J_{\lambda}(t)\J_{\lambda}(z)}{\langle \J_{\lambda}, \J_{\lambda}\rangle_{\alpha}}\right)g_N^{(\sfrac{2}{\alpha})}(t)\mathop{dt} = \\
+        \sum\limits_{\lambda \vdash m}\frac{\J_{\lambda}(z)}{\langle \J_{\lambda}, \J_{\lambda}\rangle_{\alpha}}\int\limits_{\mathbb{R}^N}\J_{\lambda}(t)g_N^{(\sfrac{2}{\alpha})}(t)\mathop{dt} = \\
+    	\left.\sum\limits_{\lambda \vdash m}
+		\frac{\J_{\lambda}(x)\J_{\lambda}(y)\J_{\lambda}(z)}
+		{\langle \J_{\lambda}, \J_{\lambda}\rangle_{\alpha}}
+		\right\vert_{\subalign{&p_r(x) = N \\ &p_r(y) = \delta_{r, 2}}}
+    \end{multline}
+    Combining (\ref{eq:lemma1:first}) and (\ref{eq:lemma1:second}) gives the desired result.
+\end{proof}
+
+    Denote
+    $$
+	   \phi(x, y, z; t, \alpha) = \sum\limits_{n \geq 0 }t^n\sum\limits_{\lambda \vdash n}\frac{\J_{\lambda}(x)\J_{\lambda}(y)\J_{\lambda}(z)}{\langle \J_{\lambda}, \J_{\lambda}\rangle_{\alpha}}
+    $$
+    and
+    \begin{equation}\label{eq:psi}  
+	   \psi(x, y, z; t, \alpha) = \alpha t\frac{\partial}{\partial t}\log{(\phi)} =
+	   \sum\limits_{n\geq 1}t^n
+	   \left(\sum\limits_{\mu, \nu, \tau \vdash n}h_{\mu, \nu}^{\tau}(\alpha - 1)p_{\mu}(x)p_{\nu}(y)p_{\tau}(z)\right).
+    \end{equation}
+
+Now we are ready to prove the crucial lemma:
+\begin{lemma}\label{lemma:moments_and_h}
+    For any partition $\theta \vdash m$:
+    \begin{multline}
+        \int\limits_{\mathbb{R}^N}p_{\theta}(t)g_N^{(\sfrac{2}{\alpha})}(t)\mathop{dt} = \\ z_{\theta}\alpha^{l(\theta)}[t^mp_{\theta}(z)]\exp\left(\frac{1}{\alpha}\sum\limits_{n \geq 1}\frac{t^{2n}}{2n}\sum\limits_{\mu, \tau \vdash 2n}h_{\mu, (2)^n}^{\tau}(\alpha - 1)N^{l(\mu)}p_{\tau}(z)\right).
+    \end{multline}
+    In particular
+    $$
+        \int\limits_{\mathbb{R}^N}p_{\theta}(t)g_N^{(\sfrac{2}{\alpha})}(t)\mathop{dt} = 0,
+    $$
+    unless $m$ is even.
+\end{lemma}
+\begin{proof}
+    First, we note that:
+    \begin{multline}\label{eq:lemma2:1}
+        [p_{\theta}(z)]\left.\left(
+    \sum\limits_{\lambda}
+    \frac{\J_{\lambda}(x)\J_{\lambda}(y)\J_{\lambda}(z)}{\langle \J_{\lambda} \J_{\lambda}\rangle_{\alpha}}\right)\right |_{\subalign{
+            &p_r(x) = N \\
+            &p_r(y) = \delta_{r, 2}
+        }} = \\ = [t^mp_{\theta}(z)]\phi(x, y, z; t, \alpha)\Big|_{
+        \subalign{
+            &p_r(x) = N \\
+            &p_r(y) = \delta_{r, 2}
+        }
+        }
+    \end{multline}
+    From (\ref{eq:psi}) we deduce:
+    \begin{multline}\label{eq:lemma2:2}
+        \phi(x, y, z; \alpha) = \exp{\left(\int\frac{\psi(x, y, z; \alpha)}{\alpha t}\mathop{dt}\right)} = \\ \exp\left(\frac{1}{\alpha}\sum\limits_{n \geq 1}\frac{t^n}{n}
+	   \left(\sum\limits_{\mu, \nu, \tau \vdash n}h_{\mu, \nu}^{\tau}(\alpha - 1)p_{\mu}(x)p_{\nu}(y)p_{\tau}(z)\right) \right)
+    \end{multline}
+    Note, that:
+    $$
+    p_{\mu}(x)\big|_{p_r(x) = N} = N^{l(\mu)} \text{ and } p_{\nu}(y)\big|_{p_r(y) = \delta_{r, 2}} =
+    \begin{cases}
+         1 & \nu = (2^{\sfrac{l(\nu)}{2}}) \\
+         1 & \text{ otherwise }
+    \end{cases}.
+    $$
+    In particular, $p_{\nu}(y)\big|_{p_r(y) = \delta_{r, 2}} = 0$ unless the size of $\nu$ is even. Now we are ready to do the corresponding substitutions in (\ref{eq:lemma2:2}) to obtain:
+    \begin{equation}\label{eq:lemma2:3}
+        \phi(x, y, z; t, \alpha)\Big|_{
+        \subalign{
+            &p_r(x) = N \\
+            &p_r(y) = \delta_{r, 2}
+        }
+        } = \exp\left(\frac{1}{\alpha}\sum\limits_{n \geq 1}\frac{t^{2n}}{2n}\sum\limits_{\mu, \tau \vdash 2n}h_{\mu, (2)^n}^{\tau}(\alpha - 1)N^{l(\mu)}p_{\tau}(z)\right).
+    \end{equation}
+    The rest is just combining (\ref{eq:lemma2:1}),  (\ref{eq:lemma2:3}) and \textbf{Lemma \ref{lemma:moments_and_jack}}.
+\end{proof}
+
+\begin{proposition}\label{prop:moments_and_h}
+    For all positive integers $k$ the following holds:
+    \begin{equation}
+        \begin{cases}
+        \langle \overline{L}_{N}^{(\sfrac{2}{\alpha})}, x^{2k + 1} \rangle = 0 \\
+        \langle \overline{L}_{N}^{(\sfrac{2}{\alpha})}, x^{2k} \rangle = \frac{1}{N^{k + 1}}\sum\limits_{\mu \vdash 2k}h_{\mu, (2^k)}^{(2k)}(\alpha - 1)N^{l(\mu)}
+        \end{cases}
+    \end{equation}
+\end{proposition}
+\begin{proof}
+    Note, that:
+    $$
+        \langle \overline{L}_{N}^{(\sfrac{2}{\alpha})}, x^{r} \rangle = \E\left[\frac{1}{N}\sum\limits_{i = 1}^N\left(\frac{\lambda_i}{\sqrt{N}}\right)^r\right] = \frac{1}{N^{1 + \sfrac{r}{2}}}\int\limits_{\mathbb{R}^N}p_{(r)}(t)g_N^{(\sfrac{2}{\alpha})}\mathop{dt}.
+    $$
+    It follows from \textbf{Lemma \ref{lemma:moments_and_h}}, that:
+    $$
+        \langle \overline{L}_{N}^{(\sfrac{2}{\alpha})}, x^{2k + 1} \rangle = 0
+    $$
+    Now for brevity, denote:
+    $$
+        A(t) = \frac{1}{\alpha}\sum\limits_{n \geq 1}\frac{t^{2n}}{2n}\sum\limits_{\mu, \tau \vdash 2n}h_{\mu, (2)^n}^{\tau}(\alpha - 1)N^{l(\mu)}p_{\tau}(z).
+    $$
+    \textbf{Lemma \ref{lemma:moments_and_h}} says, that:
+    $$
+        \int\limits_{\mathbb{R}^N}p_{(r)}(t)g_N^{(\sfrac{2}{\alpha})}\mathop{dt} = 2k\alpha[t^{2k}p_{(2k)}(z)]\left(1 + \frac{A(t)}{1!} + \frac{A(t)^2}{2!} + \ldots \right)
+    $$
+    Note, that the term $p_{(2k)}(t)$ can not appear in the part:
+    $$
+        \frac{A(t)^2}{2!} + \frac{A(t)^3}{3!} + \ldots , 
+    $$
+    since all power-sum polynomials apearing there are indexed by partitions having length at least $2$.
+    
+    So we have:
+    \begin{equation}\label{eq:mixed_moments_and_h}
+        \int\limits_{\mathbb{R}^N}p_{(r)}(t)g_N^{(\sfrac{2}{\alpha})}\mathop{dt} = 2k\alpha[t^{2k}p_{(2k)}(z)]A(t) = \sum\limits_{\mu \vdash 2k}h_{\mu, (2^k)}^{(2k)}(\alpha - 1)N^{l(\mu)}.
+    \end{equation}
+\end{proof}
+
+\begin{proposition}\label{prop:variance_and_h}
+    For all positive integers $k$ the following holds:
+    \begin{equation}
+        \begin{cases}
+            \Var[\langle L_{N}^{(\sfrac{2}{\alpha})}, x^{2k + 1} \rangle] = 0 \\
+            \Var[\langle L_{N}^{(\sfrac{2}{\alpha})}, x^{2k} \rangle] = \frac{2k\alpha}{N^{2 + 2k}}\sum\limits_{\mu \vdash 4k}h_{\mu, (2^{2k})}^{(2k, 2k)}(\alpha - 1)N^{l(\mu)}.
+        \end{cases}
+    \end{equation}
+\end{proposition}
+\begin{proof}
+    Similarly to the previous proposition, we note
+    \begin{multline}\label{eq:prop4:1}
+        \Var[\langle L_{N}^{(\sfrac{2}{\alpha})}, x^{r} \rangle] = \E[L_{N}^{(\sfrac{2}{\alpha})}, x^{r}] = \E[(\langle L_{N}^{(\sfrac{2}{\alpha})}, x^{r} \rangle)^2] - \left(\E[\langle L_{N}^{(\sfrac{2}{\alpha})}, x^{r} \rangle]\right)^2 = \\
+        = \frac{1}{N^{2 + 2k}}\left(\int\limits_{\mathbb{R}^N}p_{(r, r)}g_N^{(\sfrac{2}{\alpha})}(t)\mathop{dt} - \left(\int\limits_{\mathbb{R}^{N}}p_{(r)}g_N^{(\sfrac{2}{\alpha})}(t)\mathop{dt}\right)^2\right).
+    \end{multline}
+    It follows from \textbf{Lemma \ref{lemma:moments_and_h}}, that:
+    $$
+        \Var[\langle L_{N}^{(\sfrac{2}{\alpha})}, x^{2k + 1} \rangle] = 0.
+    $$
+    Similarly to the proof of the \textbf{Prop \ref{prop:moments_and_h}} we denote:
+    $$
+        A(t) = \frac{1}{\alpha}\sum\limits_{n \geq 1}\frac{t^{2n}}{2n}\sum\limits_{\mu, \tau \vdash 2n}h_{\mu, (2)^n}^{\tau}(\alpha - 1)N^{l(\mu)}p_{\tau}(z),
+    $$
+    and, using \textbf{Lemma \ref{lemma:moments_and_h}}, note, that
+    \begin{multline}\label{eq:prop4:2}
+        \int\limits_{\mathbb{R}^N}p_{(2k, 2k)}g_N^{(\sfrac{2}{\alpha})}(t)\mathop{dt} = z_{(2k, 2k)}\alpha^{2}[t^{4k}p_{(2k, 2k)}(z)]\left(\frac{A(t)}{1!} + \frac{A(t)}{2!}\right) = \\ =
+        8k^2\alpha^2\left(\frac{1}{4k\alpha}\sum\limits_{\mu \vdash 4k}h_{\mu, (2^{2k})}^{(2k, 2k)}(\alpha - 1)N^{l(\mu)} + \frac{1}{8k^2\alpha^2}\left(\sum\limits_{\mu \vdash 2k}h_{\mu, (2^k)}^{(2k)}(\alpha - 1)N^{l(\mu)}\right)^2\right) = \\
+        = 2k\alpha\sum\limits_{\mu \vdash 4k}h_{\mu, (2^{2k})}^{(2k, 2k)}(\alpha - 1)N^{l(\mu)} + \left(\int\limits_{\mathbb{R}^{N}}p_{(r)}g_N^{(\sfrac{2}{\alpha})}(t)\mathop{dt}\right)^2.
+    \end{multline}
+    The last equality follows from (\ref{eq:mixed_moments_and_h}). The rest is just combining (\ref{eq:prop4:1}) and (\ref{eq:prop4:2}).
+\end{proof}
+
+\section{Proofs of the main results}
+
+We borrow the notions of \emph{bridge}, \emph{border}, \emph{twisted edge}, \emph{handle} from \cite{dolega} and denote a number of corresponding type root edges appearing during the root deletion process of the map by $br(M)$, $bo(M)$, $t(M)$, $h(M)$. Also we'll use $\eta(M)$ -- one of the measures of non-orientability, also introduced in \cite{dolega}. By $F(M)$ we denote the face degree partition of $M$.
+
+\begin{lemma}\label{lemma:map_char_identitites} The following holds true:
+    \begin{itemize}
+        \item $v(M) = br(M) + 1$
+        \item $e(M) = bo(M) + t(M) + h(M) + br(M)$
+        \item $f(M) = bo(M) - h(M) + 1$
+    \end{itemize}
+\end{lemma}
+\begin{proof}
+    During the root deletion process the number of connected components increases only if the border deleted. Since the initial number of connected components of $M$ is $1$ and the final number is $v(M)$. We get $v(M) = br(M) + 1$.
+
+    The second identity is obvious.
+
+    Suppose at some point of the root deletion process there are $k$ connected maps $M_1, \ldots, M_k$. We are interested in the characteristic $\left(\sum\limits_{i = 1}^{k}f(M_i)\right) - k$. We note, that the deletion of borders and twisted edges doesn't change the characteristic, the deletion of handles -- increases  by $1$, the deletion of borders -- decreases by $1$. At the beginning it's value is $f(M) - 1$ and in the end -- $0$, so we get $f(M) - 1 = bo(M) - h(M)$.
+\end{proof}
+
+\begin{lemma}\label{lemma:eta_bound}
+    $$
+        \eta(M) \leq 2g(M),
+    $$
+    and the equality holds if and only if $M$ is unhandled ($h(M) = 0$).
+\end{lemma}
+
+\begin{proof}
+    We rewrite Euler's identity, using \textbf{Lemma \ref{lemma:map_char_identitites}}:
+    \begin{multline*}
+        2g(M) = 2 - v(M) + e(M) - f(M) = \\ = 2 - (br(M) + 1) + (bo(M) + t(M) + h(M) + br(M)) - (bo(M) - h(M) + 1) = \\ = t(M) + 2h(M)
+    \end{multline*}
+    By the definition of $\eta$:
+    $$
+        t(M) \leq \eta(M) \leq t(M) + h(M) \leq t(M) + 2h(M) = 2g(M),
+    $$
+    which proves the statement.
+\end{proof}
+
+
+\begin{proof}[Proof of the \textbf{Proposition \ref{prop:variance}}]
+    We begin with the reformulation of \textbf{Proposition \ref{prop:variance_and_h}} in terms of maps. The key ingredient for that is 		\cite{lacroix} Corollary 4.17:
+	$$
+		\sum\limits_{l(\mu) = v}h_{\mu, (2^n)}^{\tau}(b) = \sum\limits_{F(M) = \tau, \\ v(M) = v}b^{\eta(M)},
+	$$
+    It's enough to prove the proposition for even moments. We see, that:
+    \begin{multline}
+        \sum\limits_{\mu \vdash 4k}h_{\mu, (2^{2k})}^{(2k, 2k)}(\alpha - 1)N^{l(\mu)} = \sum\limits_{v = 1}^{4k}N^{v}\sum\limits_{\mu \vdash 4k, l(\mu) = v}h_{\mu, (2^{2k})}^{(2k, 2k)}(\alpha - 1) = \\
+        = \sum\limits_{v = 1}^{4k}N^v\sum\limits_{\substack{F(M) = (2k, 2k), \\ v(M) = v}}(\alpha - 1)^{\eta(M)} = \sum\limits_{F(M)=(2k,2k)}(\alpha - 1)^{\eta(M)}N^{v(M)}.
+    \end{multline}
+    Now note, that if $F(M) = (2k, 2k)$, then $e(M) = 2k$ and $f(M) = 2$ and hence $v(M) - 2k = -2g(M)$. We get: 
+    \begin{multline}
+        \Var[\langle L_{N}^{(\sfrac{2}{\alpha})}, x^{2k} \rangle] = \frac{2k\alpha}{N^{2 + 2k}}\sum\limits_{F(M)=(2k,2k)}(\alpha - 1)^{\eta(M)}N^{v(M)} = \\
+        = \frac{2k\alpha}{N^2}\sum\limits_{F(M)=(2k,2k)}(\alpha - 1)^{\eta(M)}N^{-2g(M)}.
+    \end{multline}
+    Note that $L_m = L_{N_m}^{\sfrac{2}{(\sfrac{2}{\beta_m})}}$, hence:
+    $$
+        \Var[\langle L_{m}, x^{2k} \rangle] = \frac{4k}{\beta_ mN_m^2}\sum\limits_{F(M)=(2k,2k)}\left(\frac{2}{\beta_m} - 1\right)^{\eta(M)}N_m^{-2g(M)}.
+    $$
+    Since $\eta(M) \leq 2g(M)$:
+    $$
+        \lim\limits_{m \to \infty}\left(\frac{2}{\beta_m} - 1\right)^{\eta(M)}N_m^{-2g(M)} \leq (2c)^{\eta(M)},
+    $$
+    and:
+    $$
+        \lim\limits_{m \to \infty}\frac{4k}{\beta_ mN_m^2} = 0,
+    $$
+    we get:
+    $$
+        \lim\limits_{m \to \infty}\Var[\langle L_{m}, x^{2k} \rangle] = 0.
+    $$
+    
+\end{proof}
+
+\begin{lemma} \label{lemma:unhandled_to_oriented_bijection}
+    Rooted unhandled, unicellular maps with $e$ edges and $v$ vertices are in bijection with rooted oriented maps with the same number of edges and vertices.
+\end{lemma}
+
+
+\begin{lemma}
+\begin{equation}
+    \lim\limits_{m \to \infty}\langle \overline{L}_m, x^{2k} \rangle = c^{k + 1}\sum\limits_{\substack{\text{$M$ -- rooted, } \\ \text{oriented}, e(M) = k}}c^{-v(M)}
+\end{equation}
+\end{lemma}
+\begin{proof}
+    Similarly to the proof of \textbf{Proposition \ref{prop:variance}}, we use \cite{lacroix} \textbf{Corollary 4.17} to reformulate \textbf{Proposition \ref{prop:moments_and_h}} in terms of maps:
+    \begin{multline}        
+        \langle \overline{L}_{N}^{(\sfrac{2}{\alpha})}, x^{2k} \rangle = \frac{1}{N^{k + 1}}\sum\limits_{\mu \vdash 2k}h_{\mu, (2^k)}^{(2k)}(\alpha - 1)N^{l(\mu)} = \\
+        = \frac{1}{N^{k + 1}}\sum\limits_{\substack{F(M) = (2k)}}(\alpha - 1)^{\eta(M)}N^{v(M)} = \sum\limits_{\substack{F(M) = (2k)}}(\alpha - 1)^{\eta(M)}N^{-2g(M)}
+    \end{multline}
+    And hence:
+    $$ 
+        \langle \overline{L}_m, x^{2k} \rangle = \sum\limits_{F(M) = (2k)}\left(\frac{2}{\beta_m} - 1\right)^{\eta(M)}N_m^{-2g(M)}.
+    $$
+    From \textbf{Lemma \ref{lemma:eta_bound}} it follows, that:
+    $$
+    \begin{cases}
+        \lim\limits_{m \to \infty}\left(\frac{2}{\beta_m} - 1\right)^{\eta(M)}N_m^{-2g(M)} = c^{-2g(M)} & \text{ if $M$ is unhandled} \\
+        \lim\limits_{m \to \infty}\left(\frac{2}{\beta_m} - 1\right)^{\eta(M)}N_m^{-2g(M)} = 0 & \text{ otherwise }
+    \end{cases}
+    $$
+    Using \textbf{Lemma \ref{lemma:unhandled_to_oriented_bijection}}:
+    \begin{multline*}
+        \lim\limits_{m \to \infty}\langle \overline{L}_m, x^{2k} \rangle = \sum\limits_{ \substack{ M  \text{ -- unhandled}, \\ \text{unicellular}, e(M) = k}}c^{-2g(M)} = \\ = \sum\limits_{\substack{\text{$M$ -- rooted, } \\ \text{unicellular,} \\ \text{unhandled,} e(M) = k}}c^{-k + v(M) - 1} = c^{-k - 1}\sum\limits_{\substack{\text{$M$ -- rooted, } \\ \text{oriented}, e(M) = k}}c^{v(M)}.
+    \end{multline*}
+\end{proof}
+
+\begin{proof}[Proof of the \textbf{Proposition \ref{prop:moments}}]
+    Let $M(k)$ denote the set of all rooted, oriented, connected maps with $e$ edges. By deleting the root edge, we see, for $k \geq 1$:
+    \begin{equation}\label{eq:oriented_maps_decomposition}
+        M(k) \equiv \bigsqcup_{r + s = k - 1}M(r)\times M(s) \sqcup (2k - 1)M(k - 1).
+    \end{equation}
+
+    Now denote:
+    $$
+        a_k = c^{k + 1}\sum\limits_{\substack{\text{$M$ -- rooted, } \\ \text{oriented}, e(M) = k}}c^{-v(M)}.
+    $$
+    and combining it with (\ref{eq:oriented_maps_decomposition}), we get the recurrence relation for $k > 1$:
+    \begin{equation}
+        \begin{cases}
+            a_k = \sum\limits_{r + s = k - 1}a_ra_s + c(2k - 1)a_{k - 1} & k \geq 1 \\
+            a_k = 1 & k = 0
+        \end{cases},
+    \end{equation}
+    which coincides with the reccurence for $M_{2k}$.
+\end{proof}
+% \section{Deducing the main theorem}
+% In this section we deduce the main theorem, assuming \textbf{Proposition \ref{prop:moments}} and \textbf{Proposition \ref{prop:variance}} hold true.
+
+% First, we show, that $\{\overline{L}_m\}_{m = 1}^{\infty}$ converges weakly to $L$.
+
+% Note, that 
+% \begin{equation}\label{eq:tightness}
+%     \overline{L}_m(\mathbb{R} \setminus [-R, R]) \leq \frac{\apply{\overline{L}_m}{x^2}}{R^2}
+% \end{equation}
+
+% Since $\lim\limits_{m \to \infty}\apply{\overline{L}_m}{x^2} = \apply{L}{x^2} < \infty$, we have $\sup\limits_{m > 0}\apply{\overline{L}_m}{x^2} < \infty$. Combining it with (\ref{eq:tightness}), we see that $\{\overline{L}_m\}_{m = 1}^{\infty}$ is tight, i.e 
+
+% $$
+%     \forall \epsilon > 0 \, \exists R = R(\epsilon) \text{ such that } \forall m \in \mathbb{Z}_{>0} \text{ holds } \overline{L}_m([-R, R]) > 1 - \epsilon.
+% $$
+% It follows from Prokhorov's theorem, that every subsequence of $\{\overline{L}_{m}\}_{m = 1}^{\infty}$ has a weakly convergent subsequence. So to prove the weak convergence of $\{\overline{L}_{m}\}_{m = 1}^{\infty}$, it's enough to show, that if a subsequence $\{\overline{L}_{m_k}\}_{k = 1}^{\infty}$ converges weakly to some $\tilde{L}$, then $\tilde{L} = L$.
+
+% Since $L$ is determined by it's moments, it's enough to show, that moments of $\tilde{L}$ and $L$ agree. Let $\phi_{R}$ be any continuous function, such that $\mathrm{1}_{[-R, R]} \leq \mathrm{1}_{[-R - 1, R + 1]}$. By monotone convergence theorem:
+
+% $$
+%     \lim\limits_{R \to \infty}\apply{\tilde{L}}{\phi_R x^r} = \apply{\tilde{L}}{x^r},
+% $$
+% so it's enough to show that:
+% $$
+%     \lim\limits_{R \to \infty}\apply{\tilde{L}}{x^r\phi_R} = \apply{L}{x^r}.
+% $$
+% Fix some $\epsilon > 0$. For any $k$, the following holds:
+
+% \begin{multline}\label{eq:bound}
+%     \left|\apply{\tilde{L}}{x^r\phi_R} - \apply{L}{x^r}\right| \leq \left|\apply{\tilde{L}}{x^r\phi_R} - \apply{\overline{L}_{m_k}}{x^r\phi_R}\right| +  \\ \left|\apply{\overline{L}_{m_k}}{x^r(1 - \phi_R)}\right| + \left|\apply{\overline{L}_{m_k}}{x^r} - \apply{L}{x^r}\right|
+% \end{multline}
+
+% By Cauchy-Schwartz:
+
+% $$
+%     \left|\apply{\overline{L}_{m_k}}{x^r(1 - \phi_R)}\right|^2 \leq \overline{L}_{m_k}(\mathbb{R} \setminus [-R, R])\apply{\overline{L}_{m_k}}{x^2r} \leq \frac{\apply{\overline{L}_{m_k}}{x^2}}{R^2}\apply{\overline{L}_{m_k}}{x^2r}
+% $$
+% Since moments of $\overline{L}_{m_k}$ have a mutual bound, we for sufficiently big $R > R_0$ and all $k$:
+% $$
+%     |\apply{\overline{L}_{m_k}}{x^r(1 - \phi_R)}| < \frac{\epsilon}{3}.
+% $$
+% Finally, when $R > R_0$ is chosen, we choose $k$ sufficiently big, such that:
+% $$
+%     \left|\apply{\tilde{L}}{x^r\phi_R} - \apply{\overline{L}_{m_k}}{x^r\phi_R}\right| < \frac{\epsilon}{3} \, \text{ and } \, \left|\apply{\overline{L}_{m_k}}{x^r} - \apply{L}{x^r}\right| < \frac{\epsilon}{3},
+% $$
+% the first is possible due to the weak convergence of $\overline{L}_{m_k}$ to $\tilde{L}$ and the latter due the convergence of moments.
+
+% Combining it with (\ref{eq:bound}), we get for sufficiently big $R$:
+
+% $$
+%     \left|\apply{\tilde{L}}{x^r\phi_R} - \apply{L}{x^r}\right| < \epsilon
+% $$
+
+\bibliographystyle{alpha}
+\bibliography{refs}
+
+\end{document}
+
