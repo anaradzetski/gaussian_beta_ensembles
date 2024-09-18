@@ -376,7 +376,62 @@ We borrow the notions of \emph{bridge}, \emph{border}, \emph{twisted edge}, \emp
 \begin{lemma} \label{lemma:unhandled_to_oriented_bijection}
     Rooted unhandled, unicellular maps with $e$ edges and $v$ vertices are in bijection with rooted oriented maps with the same number of edges and vertices.
 \end{lemma}
+\begin{proof}
+	The root deletion process defines an ordering of edges. Reversing this ordering and adding ribbons one by one, starting from $v$ disconnected vertices, defines the \emph{root adding} process. During the process, added ribbons connect the same corners they connected initially, but we're allowed to twist ribbons, as shown on the picture:
+	
+	\textbf{INSERT PIC}
+	
+	We describe algorithm of choosing the twists, which will constitute the desired bijection.
+	
+	We start by exploring how twist affects the type of the root in different settings.
+	
+	\begin{itemize}
+		\item[\textbf{Case 1}] \emph{The root connects corners from two disconnected components}.
+		
+		The root twist results in the isomorphic map. In any case the added root is a \textbf{bridge}. Also note (we'll need this fact later), that connecting two unicellular components gives a unicellular component too.
+		
+		\textbf{INSERT PIC}.
+		\item[\textbf{Case 2}] \emph{The root connects corners from the same face.}
+		 First, we depict the traversed face before adding the root:
+		
+		\textbf{INSERT PIC}
+		
+		Then depending on the twist, we either add one more face (in that case the added root is a \textbf{border}) or we keep the number of faces unchanged (the added root is a \textbf{twist}):
+		
+		\textbf{INSERT PIC}
+		
+		Note, that the border doesn't change the orientability of the map, while adding a twist always gives a non-orientable map.
+		
+		\item[\textbf{Case 3}] \emph{The root connects corners from different faces but from the same connected component}.
+		
+		We diagrammatically depict the traversed faces, containing the added root:
+		
+		\textbf{INSERT PIC}
+		
+		In both cases we decrease the number of faces by one and the added root is a \textbf{handle}. But the twist changes the traversing direction of one of the faces. So if the map without the added root is oriented, only one of the resulting maps is oriented.
+	\end{itemize}
 
+	First, we show how to make an oriented rooted map from unicellular unhandled one. We start the root adding process from $v$ trivial components and by induction we assume, that on each step all the connected components are orientable.
+	\begin{itemize}
+		\item If we encounter \textbf{Case 1} during the root addition process, we choose any of the twists.
+		
+		\item If we encounter \textbf{Case 2}, we twist the ribbon in a way to get a border.
+		
+		\item If we encounter \textbf{Case 3}, we twist the ribbon in unique available way to keep the corresponding component orientable. 
+	\end{itemize}
+
+	Now we give an algorithm of getting an unicellular unhandled map from an oriented rooted map. Again, we do the root addition process. Our strategy is to avoid the \textbf{Case 3}, since it always results in adding a handle. Inductively we maintain the following property: every connected component is unicellular.
+	
+	\begin{itemize}
+		\item If we encounter \textbf{Case 1}, we choose any of the twists. Note, that connecting to unicellular components results in an unicellular component too.
+		
+		\item If we encounter \textbf{Case 2}, we twist the ribbon i a way that gives a twisted root, thus keeping the number of faces of the component equal to $1$.
+		
+		\item We can not encounter \textbf{Case 3}, since it implies, that there is a component with at least $2$ faces, contradicting our induction hypothesis.
+	\end{itemize}
+
+	Careful analysis of both algorithms shows, that these transformations are inverse to each other.
+\end{proof}
 
 \begin{lemma}
 \begin{equation}
