@@ -433,7 +433,7 @@ We borrow the notions of \emph{bridge}, \emph{border}, \emph{twisted edge}, \emp
 	Careful analysis of both algorithms shows, that these transformations are inverse to each other.
 \end{proof}
 
-\begin{lemma}
+\begin{lemma}\label{lemma:moments_as_polynomial_in_c}
 \begin{equation}
     \lim\limits_{m \to \infty}\langle \overline{L}_m, x^{2k} \rangle = c^{k + 1}\sum\limits_{\substack{\text{$M$ -- rooted, } \\ \text{oriented}, e(M) = k}}c^{-v(M)}
 \end{equation}
@@ -461,25 +461,50 @@ We borrow the notions of \emph{bridge}, \emph{border}, \emph{twisted edge}, \emp
     \end{multline*}
 \end{proof}
 
+
+
 \begin{proof}[Proof of the \textbf{Proposition \ref{prop:moments}}]
-    Let $M(k)$ denote the set of all rooted, oriented, connected maps with $e$ edges. By deleting the root edge, we see, for $k \geq 1$:
-    \begin{equation}\label{eq:oriented_maps_decomposition}
-        M(k) \equiv \bigsqcup_{r + s = k - 1}M(r)\times M(s) \sqcup (2k - 1)M(k - 1).
-    \end{equation}
+    We show, that a quantity obtained in the \textbf{Lemma \ref{lemma:moments_as_polynomial_in_c}} satisfies a recurrence given in the statement of the proposition. All maps in this proof are oriented.
+    
+    Denote the set of oriented maps with $k$ edges by $\mathrm{M}(k)$. To derive a recurrence relation, we do one step of the root deletion process for a map $M \in \mathrm{M}(k)$.
+    
+    \begin{itemize}
+    	\item[\textbf{Case 1}] \emph{$M$ splits into two connected components $M_1$ and $M_2$. We denote the set of such maps by $\mathrm{M}_{1}(k)$.}
+    	
+    	Conversely, we can obtain a unique map $\tilde{M}$ from two smaller maps $\tilde{M}_1$ and $\tilde{M_2}$ in a way reverse to the root deletion process.
+    	
+    	We connect the root corners of the map $\tilde{M}_1$ and $\tilde{M}_2$ by an edge. It splits the root corner of $\tilde{M}_1$ into two. Only one of them can be chosen as a root such that the deletion of the new root edge will give $M_1$ and $M_2$ back.
+    	
+    	\item[\textbf{Case 2}] \emph{The deletion of the root results in a connected map $M_1$. We denote the set of such maps by $\mathrm{M}_2(k)$}
+    	
+    	Conversely, we can obtain $2k - 1$ maps $\tilde{M}, \, \mathop{e}(M) = k$ from a map $\tilde{M}_1$ in a way reverse to the root deletion process.
+    	
+    	Note, that $\tilde{M}_1$ contains $2k - 3$ corners other than a root corner. We start by drawing a half-edge from a root corner, which splits it into two new ones. So we can connect the other half-edge to one of the $(2k - 3) + 2 = 2k - 1$. Again, the choice of the new root is uniquely determined. 
+    \end{itemize}
+
+	
+    
+	So for $k \geq 1$ we get a bijection:
+    
+    \begin{multline}\label{eq:oriented_maps_decomposition}
+        \mathrm{M}(k) = \mathrm{M}_1(k) \sqcup \mathrm{M}_2(k) \longleftrightarrow \\ 
+        \longleftrightarrow\left(\bigsqcup_{r + s = k - 1}\mathrm{M}(r)\times \mathrm{M}(s)\right) \sqcup \left(\{1,\,  \ldots,\, 2k - 1\} \times \mathrm{M}(k - 1)\right).
+    \end{multline}
 
     Now denote:
     $$
-        a_k = c^{k + 1}\sum\limits_{\substack{\text{$M$ -- rooted, } \\ \text{oriented}, e(M) = k}}c^{-v(M)}.
+        a_k = c^{k + 1}\sum\limits_{M \in \mathrm{M}(k)}c^{-v(M)}.
     $$
-    and combining it with (\ref{eq:oriented_maps_decomposition}), we get the recurrence relation for $k > 1$:
-    \begin{equation}
-        \begin{cases}
-            a_k = \sum\limits_{r + s = k - 1}a_ra_s + c(2k - 1)a_{k - 1} & k \geq 1 \\
-            a_k = 1 & k = 0
-        \end{cases},
-    \end{equation}
+    
+    Clearly, $a_0 = 1$, and, using (\ref{eq:oriented_maps_decomposition}), for $k \geq 1$ we get
+    \begin{multline}
+		a_k = \sum\limits_{M \in \mathrm{M_1}(k)}c^{k + 1 - \mathop{v}(M)} + \sum\limits_{N \in \mathrm{M_2}(k)}c^{k + 1 - \mathop{v}(N)} = \\
+		 = \sum\limits_{\substack{r + s = k - 1 \\ M_1 \in \mathrm{M}(r) \\ M_2 \in \mathrm{M}(s)}}c^{r + 1 + \mathop{v}(M_1)}c^{s + 1 \mathop{v}(M_2)} + \sum\limits_{N_1 \in \mathrm{M}(k - 1)}(2k - 1)c\cdot c^{(k - 1) + 1 + \mathop{v}(N_1)} = \\
+		 = \sum\limits_{r + s = k - 1}a_ra_s + c(2k - 1)a_{k - 1},
+    \end{multline}
     which coincides with the reccurence for $M_{2k}$.
 \end{proof}
+
 % \section{Deducing the main theorem}
 % In this section we deduce the main theorem, assuming \textbf{Proposition \ref{prop:moments}} and \textbf{Proposition \ref{prop:variance}} hold true.
 
