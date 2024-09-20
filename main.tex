@@ -13,7 +13,7 @@
 
 \newcommand{\apply}[2]{\left\langle#1, #2\right\rangle}
 \newcommand{\prob}[1]{\mathrm{P}{\left[#1\right]}}
-\newcommand{\Var}{\mathrm{Var}}
+\newcommand{\Var}{\mathrm{Var}
 \newcommand{\E}{\mathrm{E}}
 \newcommand{\J}{J^{(\alpha)}}
 
@@ -109,7 +109,6 @@ $$
 
     
 
-    Coefficients $h_{\mu, \nu}^{\tau}$, in turn, give a connection of Jack polynomials to the maps enumeration.
 \section{Connections to $h$-coefficients}
 
     First we state the main result of \cite{Okounkov_1997}, which connects $\beta$-distribition to Jack polynomials.
@@ -505,61 +504,57 @@ We borrow the notions of \emph{bridge}, \emph{border}, \emph{twisted edge}, \emp
     which coincides with the reccurence for $M_{2k}$.
 \end{proof}
 
-% \section{Deducing the main theorem}
-% In this section we deduce the main theorem, assuming \textbf{Proposition \ref{prop:moments}} and \textbf{Proposition \ref{prop:variance}} hold true.
+\begin{proof}
+	It's a corollary of \textbf{Proposition \ref{prop:moments_and_h}} (shows, that all moments of $\overline{L}_m$ exist), \textbf{Proposition \ref{prop:moments}} and \textbf{Theorem 3.5} from \cite{randmatrgeneral}.
+\end{proof}
 
-% First, we show, that $\{\overline{L}_m\}_{m = 1}^{\infty}$ converges weakly to $L$.
+\begin{proof}[Proof of the \textbf{Theorem \ref{theorem:main}}]
+	The brief plan of the proofs is the following:
+	\begin{itemize}
+		\item Show, that numbers $M_k$ satisfy the Carleman's condition.
+		
+		\item It follows from \textbf{Theorem 3.5} of \cite{randmatrgeneral}, that there exits a unique measure $L$, such that $\langle L, x^k \rangle = M_k$ and $\overline{L}_m$ weakly converges $L$.
+		
+		\item Show, that $\langle L_m, x^k \rangle$ converges in probability to $M_k = \langle L, x^k \rangle$.
+		
+		\item Theorem statement follows from \textbf{Theorem 3.7}, part \emph{ii)} of \cite{randmatrgeneral}.
+	\end{itemize}
+	For brevity, denote $a_k \coloneqq M_{2k}$. Note, that for $k \geq 1$:
+	\begin{multline}
+		a_{k} = \left(\sum\limits_{\substack{r + s = k - 1 \\ r, s \geq 1}}a_ra_s\right) + 2a_0a_k + c(2k - 1)a_{k - 1} = \left(\sum\limits_{\substack{r + s = k - 1 \\ r, s \geq 1}}a_ra_s\right) + (c(2k - 1) + 2)a_{k - 1} \leq \\ \leq (c + (2k - 1) + 2) \sum\limits_{r + s = k - 1}a_ra_s
+	\end{multline}
+	Denote $C = c + (2k - 1) + 2$. Define a sequence:
+	$$
+	\begin{cases}
+		b_k =  C \sum\limits_{r + s = k - 1}b_rb_s q & k \geq 1 \\
+		b_k = 1 & k = 0
+	\end{cases}
+	$$
+	Clearly, $a_k \leq b_k$ and a sequence $\frac{b_k}{C^k}$ satisfies Catalan's numbers recurrence, so using the Stirling's approximation:
+	
+	$$
+	a_k = C^k\frac{1}{k + 1}\binom{2k}{k}C^k \sim \frac{C^k2^{2k}}{\sqrt{2\pi k}} \coloneq c_k,
+	$$
+	Clearly:
+	$$
+		\sum\limits_{k = 1}^{\infty}c_k^{-\sfrac{1}{2k}} = +\infty,
+	$$
+	so $M_k$ satisfies Carleman's condition.
+	
+	To show, that $\langle L, x^k\rangle$ converges in probability to $M_k$ we note that:
+	
+	\begin{multline*}
+		\prob{|\langle L_m, x^k \rangle - M_k| > \epsilon} \leq  \\ \leq	\prob{\left|\langle L_m, x^k \rangle - \langle\overline{L}_m, x^k\rangle\right| > \frac{\epsilon}{2}} + \prob{\left|\langle\overline{L}_m, x^k\rangle - M_k\right| > \frac{\epsilon}{2}}.
+	\end{multline*}
+	The latter summand is eventually $0$ by \textbf{Proposition \ref{prop:moments}}. To estimate the first summand we use the Tchebysheff inequality and \textbf{Proposition \ref{prop:variance}}:
+	$$
+		\prob{\left|\langle L_m, x^k \rangle - \langle\overline{L}_m, x^k\rangle\right|} \leq \frac{\Var{\langle L_m, x^k \rangle}}{(\sfrac{\epsilon}{2})^2} \longrightarrow 0.
+	$$
+\end{proof}
 
-% Note, that 
-% \begin{equation}\label{eq:tightness}
-%     \overline{L}_m(\mathbb{R} \setminus [-R, R]) \leq \frac{\apply{\overline{L}_m}{x^2}}{R^2}
-% \end{equation}
-
-% Since $\lim\limits_{m \to \infty}\apply{\overline{L}_m}{x^2} = \apply{L}{x^2} < \infty$, we have $\sup\limits_{m > 0}\apply{\overline{L}_m}{x^2} < \infty$. Combining it with (\ref{eq:tightness}), we see that $\{\overline{L}_m\}_{m = 1}^{\infty}$ is tight, i.e 
-
-% $$
-%     \forall \epsilon > 0 \, \exists R = R(\epsilon) \text{ such that } \forall m \in \mathbb{Z}_{>0} \text{ holds } \overline{L}_m([-R, R]) > 1 - \epsilon.
-% $$
-% It follows from Prokhorov's theorem, that every subsequence of $\{\overline{L}_{m}\}_{m = 1}^{\infty}$ has a weakly convergent subsequence. So to prove the weak convergence of $\{\overline{L}_{m}\}_{m = 1}^{\infty}$, it's enough to show, that if a subsequence $\{\overline{L}_{m_k}\}_{k = 1}^{\infty}$ converges weakly to some $\tilde{L}$, then $\tilde{L} = L$.
-
-% Since $L$ is determined by it's moments, it's enough to show, that moments of $\tilde{L}$ and $L$ agree. Let $\phi_{R}$ be any continuous function, such that $\mathrm{1}_{[-R, R]} \leq \mathrm{1}_{[-R - 1, R + 1]}$. By monotone convergence theorem:
-
-% $$
-%     \lim\limits_{R \to \infty}\apply{\tilde{L}}{\phi_R x^r} = \apply{\tilde{L}}{x^r},
-% $$
-% so it's enough to show that:
-% $$
-%     \lim\limits_{R \to \infty}\apply{\tilde{L}}{x^r\phi_R} = \apply{L}{x^r}.
-% $$
-% Fix some $\epsilon > 0$. For any $k$, the following holds:
-
-% \begin{multline}\label{eq:bound}
-%     \left|\apply{\tilde{L}}{x^r\phi_R} - \apply{L}{x^r}\right| \leq \left|\apply{\tilde{L}}{x^r\phi_R} - \apply{\overline{L}_{m_k}}{x^r\phi_R}\right| +  \\ \left|\apply{\overline{L}_{m_k}}{x^r(1 - \phi_R)}\right| + \left|\apply{\overline{L}_{m_k}}{x^r} - \apply{L}{x^r}\right|
-% \end{multline}
-
-% By Cauchy-Schwartz:
-
-% $$
-%     \left|\apply{\overline{L}_{m_k}}{x^r(1 - \phi_R)}\right|^2 \leq \overline{L}_{m_k}(\mathbb{R} \setminus [-R, R])\apply{\overline{L}_{m_k}}{x^2r} \leq \frac{\apply{\overline{L}_{m_k}}{x^2}}{R^2}\apply{\overline{L}_{m_k}}{x^2r}
-% $$
-% Since moments of $\overline{L}_{m_k}$ have a mutual bound, we for sufficiently big $R > R_0$ and all $k$:
-% $$
-%     |\apply{\overline{L}_{m_k}}{x^r(1 - \phi_R)}| < \frac{\epsilon}{3}.
-% $$
-% Finally, when $R > R_0$ is chosen, we choose $k$ sufficiently big, such that:
-% $$
-%     \left|\apply{\tilde{L}}{x^r\phi_R} - \apply{\overline{L}_{m_k}}{x^r\phi_R}\right| < \frac{\epsilon}{3} \, \text{ and } \, \left|\apply{\overline{L}_{m_k}}{x^r} - \apply{L}{x^r}\right| < \frac{\epsilon}{3},
-% $$
-% the first is possible due to the weak convergence of $\overline{L}_{m_k}$ to $\tilde{L}$ and the latter due the convergence of moments.
-
-% Combining it with (\ref{eq:bound}), we get for sufficiently big $R$:
-
-% $$
-%     \left|\apply{\tilde{L}}{x^r\phi_R} - \apply{L}{x^r}\right| < \epsilon
-% $$
 
 \bibliographystyle{alpha}
-\bibliography{refs}
+\bibliography{refs.bib}
 
 \end{document}
 
