@@ -5,8 +5,12 @@
 \usepackage{amsfonts}
 \usepackage{mathtools}
 \usepackage{xfrac}
+\usepackage{float}
 \usepackage[T1]{fontenc}
 \usepackage[utf8]{inputenc}
+
+\graphicspath{ {./pictures/} }
+\DeclareGraphicsExtensions{.pdf, .png}
 
 \newtheorem{theorem}{Theorem}
 \newtheorem{lemma}{Lemma}
@@ -439,9 +443,15 @@ process of the map by $br(M)$, $bo(M)$, $t(M)$, $h(M)$. Also we'll
 \begin{proof}
 	The root deletion process defines an ordering of edges. Reversing this ordering and adding ribbons one by one, starting from $v$ disconnected vertices, defines the \emph{root adding} process. During the process, added ribbons connect the same corners they connected initially, but we're allowed to twist ribbons, as shown on the picture:
 	
-	\textbf{INSERT PIC}
+	\begin{figure}[h]
+		
+		\includegraphics[scale=0.4]{twist}
+		\centering
+		\caption{The red edge is twisted in two different ways}
+	\end{figure}
 	
-	We describe algorithm of choosing the twists, which will constitute the desired bijection.
+	
+	We describe algorithm of choosing the twists, which constitutes the desired bijection.
 	
 	We start by exploring how twist affects the type of the root in different settings.
 	
@@ -449,16 +459,24 @@ process of the map by $br(M)$, $bo(M)$, $t(M)$, $h(M)$. Also we'll
 		\item[\textbf{Case 1}] \emph{The root connects corners from two disconnected components}.
 		
 		The root twist results in the isomorphic map. In any case the added root is a \textbf{bridge}. Also note (we'll need this fact later), that connecting two unicellular components gives a unicellular component too.
-		
-		\textbf{INSERT PIC}.
+
 		\item[\textbf{Case 2}] \emph{The root connects corners from the same face.}
+		
 		 First, we depict the traversed face before adding the root:
 		
-		\textbf{INSERT PIC}
+		\begin{figure}[H]
+			\includegraphics[scale=0.4]{traversed_face}
+			\centering
+			\caption{A traversed face}
+		\end{figure}
 		
 		Then depending on the twist, we either add one more face (in that case the added root is a \textbf{border}) or we keep the number of faces unchanged (the added root is a \textbf{twist}):
 		
-		\textbf{INSERT PIC}
+		\begin{figure}[H]
+			\includegraphics[scale=0.4]{connecting_corners_of_one_face}
+			\centering
+			\caption{Connecting corners of one face. The added bridge on the left and the added twist on the right.}
+		\end{figure}
 		
 		Note, that the border doesn't change the orientability of the map, while adding a twist always gives a non-orientable map.
 		
@@ -466,7 +484,11 @@ process of the map by $br(M)$, $bo(M)$, $t(M)$, $h(M)$. Also we'll
 		
 		We diagrammatically depict the traversed faces, containing the added root:
 		
-		\textbf{INSERT PIC}
+		\begin{figure}[H]
+			\includegraphics[scale=0.4]{connecting_corners_of_one_face}
+			\centering
+			\caption{Connecting different faces.}			
+		\end{figure}
 		
 		In both cases we decrease the number of faces by one and the added root is a \textbf{handle}. But the twist changes the traversing direction of one of the faces. So if the map without the added root is oriented, only one of the resulting maps is oriented.
 	\end{itemize}
