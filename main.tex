@@ -6,6 +6,8 @@
 \usepackage{mathtools}
 \usepackage{xfrac}
 \usepackage{float}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
 
 \graphicspath{ {./pictures/} }
 \DeclareGraphicsExtensions{.pdf, .png}
@@ -20,6 +22,7 @@
 \newcommand{\Var}{\mathrm{Var}}
 \newcommand{\E}{\mathrm{E}}
 \newcommand{\J}{J^{(\alpha)}}
+\usepackage{todonotes}
 
 \makeatletter
 \newcommand{\subalign}[1]{%
@@ -40,6 +43,24 @@
 \begin{document}
 
 \section{Introduction}
+
+\todo[inline]{MD: I am going to write some quick comments/remarks
+  using this environment}
+
+\todo[inline]{MD: It would be good to add a context: quick comments on
+random matrices GUE/GOE/GSE and G$\beta$E as their generalization
+(what's their definition? who
+was studyingn them before? which important results were obtained
+before that motivate your research?);
+classical law of large numbers starting from Wigner and going to
+Johansson with the universal semicircle law limit. Then the most
+recent results about the ``high-temperature'' limit (it would be good
+to mention that the ``high temperature'' comes from the log-gas system
+interpretation where $\beta$ is the inverse of the temperature of the
+model. Impartant: the purpose of the introduction is to give a context
+and motivation for your study; at the same time it should be
+mathematically as light as possible.}
+
 Recall, that 'eigenvalues' distrubution of Gaussian $\beta$-ensemble of size $N$ has density
 $$
     	\frac{1}{Z_{N}^{(\beta)}}\exp{\left(-\frac{1}{2}\sum\limits_{i = 1}^{N}x_{i}^2\right)}|V_N(x_1, \ldots, x_N)|^{\beta},
@@ -59,7 +80,15 @@ $$
     $$
         (\lambda_{1}^{(\beta)}, \ldots, \lambda_{N}^{(\beta)}) \propto g_{N}^{(\beta)},
     $$
-    when $N \to +\infty$ while $N \cdot \beta \to 2c$, where $c$ is some constant.
+    when $N \to +\infty$ while $N \cdot \beta \to 2c$, where $c$ is
+    some constant.
+
+    \todo[inline]{MD: Did someone study this problem before? Why your
+      result is better (hint: elementary proof as in the case of the
+      finite $\beta$; proof that does not require the tridiagonal
+      model -> potential to generalize to other measures; new
+      connection between high-temperature limit and maps on
+      surfaces;)}
 
     To be more precise, we introduce the random measure
     $$
@@ -111,9 +140,20 @@ $$
         $$
     \end{theorem}
 
-    
+    \todo[inline]{MD: Again, it is good to think what is the main
+      result. The main result is the LLN for your model. The novelty
+      is the method - it's purely combinatorial. It is not necessary
+      to state propositions separately in the introduction; it's
+      better to ezplain in words that you will prove purely
+      combinatoriall the convergence of moments, and you will deduce
+      the main theorem using a standard arguement that shows that
+      variance is small.}
 
-\section{Connections to $h$-coefficients}
+    \section{Connections to $h$-coefficients}
+
+        \todo[inline]{MD: Jack polynomials should be introduced. It is
+        not necessary to define them from scratch, but some references
+      should be used (warning you mixed x's with y's).}
 
     First we state the main result of \cite{Okounkov_1997}, which connects $\beta$-distribition to Jack polynomials.
 
@@ -123,7 +163,11 @@ $$
 
     \begin{equation}\label{eq:okounkov}
         \int\limits_{\mathbb{R}^n}\J_\lambda(t)g_{N}^{(\sfrac{2}{\alpha})}(t)\mathop{dt} = \J_{\lambda}(1, \ldots, 1)\left(\left[ |y|^{|\lambda|}\right]\J_\lambda(y)\right).
-    \end{equation}
+      \end{equation}
+
+              \todo[inline]{MD: It's hard to find what's $g_N$. It
+                would be better to introduced it by equation, to which
+                you can refer.}
 
     We rewrite it as follows:
     \begin{equation}\label{eq:okounkov}
@@ -145,6 +189,7 @@ $$
             &p_r(y) = \delta_{r, 2}
         }}
     \end{equation}
+         \todo{MD: $z_\theta$ not defined}
 \end{lemma}
 \begin{proof}
     Note, that:
@@ -152,7 +197,9 @@ $$
         \frac{1}{z_{\theta}\alpha^{l(\theta)}}\int\limits_{\mathbb{R}^N}p_{\theta}(t)g_N^{(\sfrac{2}{\alpha})}(t)\mathop{dt} = [p_{\theta}(z)]\int\limits_{\mathbb{R}^N}\left(\sum\limits_{\lambda \vdash m}\frac{p_{\lambda}(z)p_{\lambda}(t)}{z_{\lambda}\alpha^{l(\lambda)}}\right)g_N^{(\sfrac{2}{\alpha})}(t)\mathop{dt}.
     \end{equation}
 
-    Now we use the Cauchy identity:
+    Now we use the Cauchy identity \todo{MD: add the preliminary
+      section (where Jack polynomials are defined) with important
+      results such as the Cauchy identity}:
     $$
 		\prod_{i, j}(1 - x_iy_j)^{-\frac{1}{\alpha}} = \sum_{\lambda}{\frac{p_{\lambda}(x)p_{\lambda}(y)}{z_{\lambda}\alpha^{l(\lambda)}}} = \sum_{\lambda}{\frac{\J_{\lambda}(x)\J_{\lambda}(y)}{\langle \J_{\lambda}, \J_{\lambda}\rangle_{\alpha}}},
 	$$
@@ -186,7 +233,7 @@ Now we are ready to prove the crucial lemma:
     For any partition $\theta \vdash m$:
     \begin{multline}
         \int\limits_{\mathbb{R}^N}p_{\theta}(t)g_N^{(\sfrac{2}{\alpha})}(t)\mathop{dt} = \\ z_{\theta}\alpha^{l(\theta)}[t^mp_{\theta}(z)]\exp\left(\frac{1}{\alpha}\sum\limits_{n \geq 1}\frac{t^{2n}}{2n}\sum\limits_{\mu, \tau \vdash 2n}h_{\mu, (2)^n}^{\tau}(\alpha - 1)N^{l(\mu)}p_{\tau}(z)\right).
-    \end{multline}
+      \end{multline}
     In particular
     $$
         \int\limits_{\mathbb{R}^N}p_{\theta}(t)g_N^{(\sfrac{2}{\alpha})}(t)\mathop{dt} = 0,
@@ -212,13 +259,15 @@ Now we are ready to prove the crucial lemma:
     \begin{multline}\label{eq:lemma2:2}
         \phi(x, y, z; \alpha) = \exp{\left(\int\frac{\psi(x, y, z; \alpha)}{\alpha t}\mathop{dt}\right)} = \\ \exp\left(\frac{1}{\alpha}\sum\limits_{n \geq 1}\frac{t^n}{n}
 	   \left(\sum\limits_{\mu, \nu, \tau \vdash n}h_{\mu, \nu}^{\tau}(\alpha - 1)p_{\mu}(x)p_{\nu}(y)p_{\tau}(z)\right) \right)
-    \end{multline}
+       \end{multline}
+       \todo{MD: This integral might make no sense - it would be better
+       to say that you want to take the formal antiderivative}
     Note, that:
     $$
     p_{\mu}(x)\big|_{p_r(x) = N} = N^{l(\mu)} \text{ and } p_{\nu}(y)\big|_{p_r(y) = \delta_{r, 2}} =
     \begin{cases}
          1 & \nu = (2^{\sfrac{l(\nu)}{2}}) \\
-         1 & \text{ otherwise }
+         0 & \text{ otherwise }
     \end{cases}.
     $$
     In particular, $p_{\nu}(y)\big|_{p_r(y) = \delta_{r, 2}} = 0$ unless the size of $\nu$ is even. Now we are ready to do the corresponding substitutions in (\ref{eq:lemma2:2}) to obtain:
@@ -246,7 +295,8 @@ Now we are ready to prove the crucial lemma:
     Note, that:
     $$
         \langle \overline{L}_{N}^{(\sfrac{2}{\alpha})}, x^{r} \rangle = \E\left[\frac{1}{N}\sum\limits_{i = 1}^N\left(\frac{\lambda_i}{\sqrt{N}}\right)^r\right] = \frac{1}{N^{1 + \sfrac{r}{2}}}\int\limits_{\mathbb{R}^N}p_{(r)}(t)g_N^{(\sfrac{2}{\alpha})}\mathop{dt}.
-    $$
+        $$
+        \todo{$\E$ is not defined}
     It follows from \textbf{Lemma \ref{lemma:moments_and_h}}, that:
     $$
         \langle \overline{L}_{N}^{(\sfrac{2}{\alpha})}, x^{2k + 1} \rangle = 0
@@ -258,7 +308,7 @@ Now we are ready to prove the crucial lemma:
     \textbf{Lemma \ref{lemma:moments_and_h}} says, that:
     $$
         \int\limits_{\mathbb{R}^N}p_{(r)}(t)g_N^{(\sfrac{2}{\alpha})}\mathop{dt} = 2k\alpha[t^{2k}p_{(2k)}(z)]\left(1 + \frac{A(t)}{1!} + \frac{A(t)^2}{2!} + \ldots \right)
-    $$
+    $$\todo{MD: on the LHS there is $r$, but on the RHS there is $k$?}
     Note, that the term $p_{(2k)}(t)$ can not appear in the part:
     $$
         \frac{A(t)^2}{2!} + \frac{A(t)^3}{3!} + \ldots , 
@@ -305,7 +355,13 @@ Now we are ready to prove the crucial lemma:
 
 \section{Proofs of the main results}
 
-We borrow the notions of \emph{bridge}, \emph{border}, \emph{twisted edge}, \emph{handle} from \cite{dolega} and denote a number of corresponding type root edges appearing during the root deletion process of the map by $br(M)$, $bo(M)$, $t(M)$, $h(M)$. Also we'll use $\eta(M)$ -- one of the measures of non-orientability, also introduced in \cite{dolega}. By $F(M)$ we denote the face degree partition of $M$.
+We borrow the notions of \emph{bridge}, \emph{border}, \emph{twisted
+  edge}, \emph{handle} from \cite{dolega} and denote a number of
+corresponding type root edges appearing during the root deletion
+process of the map by $br(M)$, $bo(M)$, $t(M)$, $h(M)$. Also we'll
+\todo{MD: Style: research paper is always written with the formal
+  English; you should not use forms like ``we'll'', ``we're'',
+  ``I'm'', etc.} use $\eta(M)$ -- one of the measures of non-orientability, also introduced in \cite{dolega}. By $F(M)$ we denote the face degree partition of $M$.
 
 \begin{lemma}\label{lemma:map_char_identitites} The following holds true:
     \begin{itemize}
@@ -319,7 +375,12 @@ We borrow the notions of \emph{bridge}, \emph{border}, \emph{twisted edge}, \emp
 
     The second identity is obvious.
 
-    Suppose at some point of the root deletion process there are $k$ connected maps $M_1, \ldots, M_k$. We are interested in the characteristic $\left(\sum\limits_{i = 1}^{k}f(M_i)\right) - k$. We note, that the deletion of borders and twisted edges doesn't change the characteristic, the deletion of handles -- increases  by $1$, the deletion of borders -- decreases by $1$. At the beginning it's value is $f(M) - 1$ and in the end -- $0$, so we get $f(M) - 1 = bo(M) - h(M)$.
+    Suppose at some point of the root deletion process there are $k$
+    connected maps $M_1, \ldots, M_k$. We are interested in the
+    characteristic $\left(\sum\limits_{i = 1}^{k}f(M_i)\right) -
+    k$. We note, that the deletion of borders and twisted edges
+    doesn't change the characteristic, the deletion of handles --
+    increases \todo{MD: it} by $1$, the deletion of borders -- decreases \todo{MD: it} by $1$. At the beginning it's value is $f(M) - 1$ and in the end -- $0$, so we get $f(M) - 1 = bo(M) - h(M)$.
 \end{proof}
 
 \begin{lemma}\label{lemma:eta_bound}
@@ -342,7 +403,7 @@ We borrow the notions of \emph{bridge}, \emph{border}, \emph{twisted edge}, \emp
 \end{proof}
 
 
-\begin{proof}[Proof of the \textbf{Proposition \ref{prop:variance}}]
+\begin{proof}[Proof of \textbf{Proposition \ref{prop:variance}}]
     We begin with the reformulation of \textbf{Proposition \ref{prop:variance_and_h}} in terms of maps. The key ingredient for that is 		\cite{lacroix} Corollary 4.17:
 	$$
 		\sum\limits_{l(\mu) = v}h_{\mu, (2^n)}^{\tau}(b) = \sum\limits_{F(M) = \tau, \\ v(M) = v}b^{\eta(M)},
@@ -484,7 +545,7 @@ We borrow the notions of \emph{bridge}, \emph{border}, \emph{twisted edge}, \emp
 
 
 
-\begin{proof}[Proof of the \textbf{Proposition \ref{prop:moments}}]
+\begin{proof}[Proof of \textbf{Proposition \ref{prop:moments}}]
     We show, that a quantity obtained in the \textbf{Lemma \ref{lemma:moments_as_polynomial_in_c}} satisfies a recurrence given in the statement of the proposition. All maps in this proof are oriented.
     
     Denote the set of oriented maps with $k$ edges by $\mathrm{M}(k)$. To derive a recurrence relation, we do one step of the root deletion process for a map $M \in \mathrm{M}(k)$.
@@ -544,11 +605,11 @@ We borrow the notions of \emph{bridge}, \emph{border}, \emph{twisted edge}, \emp
 	For brevity, denote $a_k \coloneqq M_{2k}$. Note, that for $k \geq 1$:
 	\begin{multline}
 		a_{k} = \left(\sum\limits_{\substack{r + s = k - 1 \\ r, s \geq 1}}a_ra_s\right) + 2a_0a_k + c(2k - 1)a_{k - 1} = \left(\sum\limits_{\substack{r + s = k - 1 \\ r, s \geq 1}}a_ra_s\right) + (c(2k - 1) + 2)a_{k - 1} \leq \\ \leq (c + (2k - 1) + 2) \sum\limits_{r + s = k - 1}a_ra_s
-	\end{multline}
+	\end{multline}\todo{$a_k$ turned into $a_{k-1}$}
 	Denote $C = c + (2k - 1) + 2$. Define a sequence:
 	$$
 	\begin{cases}
-		b_k =  C \sum\limits_{r + s = k - 1}b_rb_s q & k \geq 1 \\
+		b_k =  C \sum\limits_{r + s = k - 1}b_rb_s  & k \geq 1 \\
 		b_k = 1 & k = 0
 	\end{cases}
 	$$
@@ -561,7 +622,8 @@ We borrow the notions of \emph{bridge}, \emph{border}, \emph{twisted edge}, \emp
 	$$
 		\sum\limits_{k = 1}^{\infty}c_k^{-\sfrac{1}{2k}} = +\infty,
 	$$
-	so $M_k$ satisfies Carleman's condition.
+	so $M_k$ satisfies Carleman's condition. \todo{but $C$ depends
+        on $k$. ooops...}
 	
 	To show, that $\langle L, x^k\rangle$ converges in probability to $M_k$ we note that:
 	
