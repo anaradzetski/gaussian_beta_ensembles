@@ -604,26 +604,37 @@ process of the map by $br(M)$, $bo(M)$, $t(M)$, $h(M)$. Also we'll
 	\end{itemize}
 	For brevity, denote $a_k \coloneqq M_{2k}$. Note, that for $k \geq 1$:
 	\begin{multline}
-		a_{k} = \left(\sum\limits_{\substack{r + s = k - 1 \\ r, s \geq 1}}a_ra_s\right) + 2a_0a_k + c(2k - 1)a_{k - 1} = \left(\sum\limits_{\substack{r + s = k - 1 \\ r, s \geq 1}}a_ra_s\right) + (c(2k - 1) + 2)a_{k - 1} \leq \\ \leq (c + (2k - 1) + 2) \sum\limits_{r + s = k - 1}a_ra_s
-	\end{multline}\todo{$a_k$ turned into $a_{k-1}$}
-	Denote $C = c + (2k - 1) + 2$. Define a sequence:
+		a_{k} = \left(\sum\limits_{\substack{r + s = k - 1 \\ r, s \geq 1}}a_ra_s\right) + 2a_0a_{k - 1} + c(2k - 1)a_{k - 1} = \\ = \left(\sum\limits_{\substack{r + s = k - 1 \\ r, s \geq 1}}a_ra_s\right) + (c(2k - 1) + 2)a_{k - 1} \leq Rk \sum\limits_{r + s = k - 1}a_ra_s,
+	\end{multline}
+	for some constant $R > 0$. Clearly, for $l \leq k$:
+	
+	\begin{equation}\label{eq:a_k_bound}
+		a_{l} \leq Rk\sum\limits_{r + s = l - 1}a_{r}a_{s}.
+	\end{equation}
+	
+	Since Catalan's numbers $C_k = \frac{1}{k + 1}\binom{2k}{k}$ can be defined as:
 	$$
 	\begin{cases}
-		b_k =  C \sum\limits_{r + s = k - 1}b_rb_s  & k \geq 1 \\
-		b_k = 1 & k = 0
-	\end{cases}
+		C_k = \sum\limits_{r + s = k - 1}C_rC_s  & k \geq 1\\
+		C_k = 1 & k = 0
+	\end{cases},
 	$$
-	Clearly, $a_k \leq b_k$ and a sequence $\frac{b_k}{C^k}$ satisfies Catalan's numbers recurrence, so using the Stirling's approximation:
+	from (\ref{eq:a_k_bound}) it follows, that: 
+	$$
+		a_{k} \leq R^kk^kC_k. 
+	$$
 	
+
+	We get:
+	\begin{equation}\label{eq:checking_carleman}
+		\sum\limits_{n = 1}^{\infty}(a_k)^{-\sfrac{1}{2k}} \geq (Rk)^{-\sfrac{1}{2}}C_k^{-\sfrac{1}{2k}}.
+	\end{equation}
+	Using Stirling's approximation, we derive asymptotics of $C_k$:
 	$$
-	a_k = C^k\frac{1}{k + 1}\binom{2k}{k}C^k \sim \frac{C^k2^{2k}}{\sqrt{2\pi k}} \coloneq c_k,
+	C_k \sim \frac{2^{2k}}{(k + 1)\sqrt{\pi k}}
 	$$
-	Clearly:
-	$$
-		\sum\limits_{k = 1}^{\infty}c_k^{-\sfrac{1}{2k}} = +\infty,
-	$$
-	so $M_k$ satisfies Carleman's condition. \todo{but $C$ depends
-        on $k$. ooops...}
+	
+	Now it's easy to see, that, the RHS of (\ref{eq:checking_carleman}) is divergent, hence $M_k$ satisfies Carleman's condition. 
 	
 	To show, that $\langle L, x^k\rangle$ converges in probability to $M_k$ we note that:
 	
